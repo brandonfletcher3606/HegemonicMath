@@ -1,0 +1,45 @@
+{
+    "workbench.colorTheme": "Gruvbox Dark (Hard)",
+    "explorer.confirmDelete": false,
+    "C_Cpp.default.intelliSenseMode": "windows-gcc-x86",
+    "cmake.options.statusBarVisibility": "visible",
+    "explorer.compactFolders": false,
+    "todohighlight.exclude": [
+        "**/node_modules/**",
+        "**/bower_components/**",
+        "**/dist/**",
+        "**/build/**",
+        "**/.vscode/**",
+        "**/.github/**",
+        "**/_output/**",
+        "**/*.min.*",
+        "**/*.map",
+        "**/.next/**"
+    ],
+    "todohighlight.keywords": [
+        {
+            "text": "TODO:",
+            "color": "red",
+            "backgroundColor": "rgba(0,0,0,0)"
+        },
+        {
+            "text": "HACK:",
+            "color": "#ff6600",
+            "backgroundColor": "rgba(0,0,0,0)"
+        },
+        {
+            "text": "NOTE:",
+            "color": "green",
+            "backgroundColor": "rgba(0,0,0,0)"
+        }
+    ],
+    "todohighlight.defaultStyle": {
+        "color": "red",
+        "backgroundColor": "#ffab00",
+        "overviewRulerColor": "rgba(0,0,0,0)"
+    },
+    "cmake.sourceDirectory": "C:/Users/hegem/vs_source/HegemonicMath/",
+    "files.associations": {
+        "xstring": "cpp"
+    }
+}
