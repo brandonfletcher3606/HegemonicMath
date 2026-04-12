@@ -1,5 +1,6 @@
 #include <gtest/gtest.h>
-#include <Vector.h>
+#include "Vector.h"
+#include <algorithm>
 #include "HegemonicMath_GTestSupport.h"
 
 /**
@@ -8,8 +9,8 @@
 TEST(Vector, VectorInitialization)
 {
     Hegemonic::Vector3d v = Hegemonic::Vector3d();
-    bool t = EXPECT_TRUE_ARRAY<double, 3>(v.get(), 0);
-    EXPECT_TRUE(t);
+    ERROR ce;
+    EXPECT_TRUE_ARRAY_APPROX<double, 3>(*v.get(), 0, ce.DOUBLE);
 }
 
 /**
@@ -19,8 +20,8 @@ TEST(Vector, VectorInitializationNonZero)
 {
     std::array<double, 3> a = {1, 2, 3};
     Hegemonic::Vector3d v = Hegemonic::Vector3d(a);
-    bool t = EXPECT_TRUE_ARRAY<double, 3>(v.get(), a);
-    EXPECT_TRUE(t);
+    ERROR ce;
+    EXPECT_TRUE_ARRAY_APPROX<double, 3>(*v.get(), a, ce.DOUBLE);
 }
 
 /**
@@ -30,8 +31,8 @@ TEST(Vector, VectorInitializationNonZeroCArray)
 {
     double a[3] = {1, 2, 3};
     Hegemonic::Vector3d v = Hegemonic::Vector3d(a);
-    bool t = EXPECT_TRUE_ARRAY<double, 3>(v.get(), {1,2,3});
-    EXPECT_TRUE(t);
+    ERROR ce;
+    EXPECT_TRUE_ARRAY_APPROX<double, 3>(*v.get(), std::array<double, 3>({1, 2, 3}), ce.DOUBLE);
 }
 
 /**
@@ -51,7 +52,7 @@ TEST(Vector, VectorGetArray)
 {
     std::array<double, 3> a = {1, 2, 3};
     Hegemonic::Vector3d v = Hegemonic::Vector3d(a);
-    std::array<double, 3> b = v.get();
+    std::array<double, 3> b = *v.get();
     for (int i = 0; i < 3; i++)
     {
         EXPECT_TRUE(b.at(i) == a.at(i));
@@ -65,6 +66,20 @@ TEST(Vector, VectorGetElement)
 {
     std::array<double, 3> a = {1, 2, 3};
     Hegemonic::Vector3d v = Hegemonic::Vector3d(a);
+    for (int i = 0; i < 3; i++)
+    {
+        EXPECT_TRUE(v.getElement(i) == a.at(i));
+    }
+}
+
+TEST(Vector, VectorGetElementSetting)
+{
+    std::array<double, 3> a = {1, 2, 3};
+    Hegemonic::Vector3d v = Hegemonic::Vector3d(a);
+
+    v.getElement(0) = 100.0;
+    a[0] = 100;
+
     for (int i = 0; i < 3; i++)
     {
         EXPECT_TRUE(v.getElement(i) == a.at(i));
@@ -110,4 +125,168 @@ TEST(Vector, VectorSetElementOutOfRange)
     std::array<double, 4> a = {2, 2, 2, 2};
     Hegemonic::Vector4d v = Hegemonic::Vector4d(a);
     EXPECT_THROW(v.setElement(10.0, 10), std::out_of_range);
+}
+
+/**
+ * INFO: Vector test to test overload operator+
+ */
+TEST(VectorOverloadOperators, AddVector2Vector)
+{
+    std::array<double, 4> a = {2, 2, 2, 2};
+    Hegemonic::Vector4d v1 = Hegemonic::Vector4d(a);
+
+    std::array<double, 4> b = {3, 3, 3, 3};
+    Hegemonic::Vector4d v2 = Hegemonic::Vector4d(b);
+    
+    std::array<double, 4> c = {5, 5, 5, 5};
+    Hegemonic::Vector4d v3 = Hegemonic::Vector4d(c);
+
+    Hegemonic::Vector4d v4 = v1 + v2;
+    ERROR er;
+    EXPECT_TRUE_VECTOR_APPROX(v4, v3, er.DOUBLE);
+}
+
+/**
+ * INFO: Vector test to test overload operator+
+ */
+TEST(VectorOverloadOperators, VectorBracketOverloadOperator)
+{
+    std::array<double, 4> a = {1,2,3,4};
+    Hegemonic::Vector4d v1 = Hegemonic::Vector4d({1,2,3,4});
+
+    for (int i = 0; i < 4; i++)
+    {
+        EXPECT_TRUE(a.at(i) == v1[i]);
+    }
+}
+
+/**
+ * INFO: Vector test to test overload operator-
+ */
+TEST(VectorOverloadOperators, SubtractVector2Vector)
+{
+    std::array<double, 4> a = {2, 2, 2, 2};
+    Hegemonic::Vector4d v1 = Hegemonic::Vector4d(a);
+
+    std::array<double, 4> b = {3, 3, 3, 3};
+    Hegemonic::Vector4d v2 = Hegemonic::Vector4d(b);
+    
+    std::array<double, 4> c = {-1, -1, -1, -1};
+    Hegemonic::Vector4d v3 = Hegemonic::Vector4d(c);
+
+    Hegemonic::Vector4d v4 = v1 - v2;
+    ERROR er;
+    EXPECT_TRUE_VECTOR_APPROX(v4, v3, er.DOUBLE);
+}
+
+/**
+ * INFO: Vector test to test overload operator-
+ */
+TEST(VectorOverloadOperators, SubtractVector2Value)
+{
+    std::array<double, 4> a = {2, 2, 2, 2};
+    Hegemonic::Vector4d v1 = Hegemonic::Vector4d(a);
+
+    double value = 3;
+    
+    std::array<double, 4> c = {-1, -1, -1, -1};
+    Hegemonic::Vector4d v3 = Hegemonic::Vector4d(c);
+
+    Hegemonic::Vector4d v4 = v1 - value;
+    ERROR er;
+    EXPECT_TRUE_VECTOR_APPROX(v4, v3, er.DOUBLE);
+}
+
+/**
+ * INFO: Vector test to test overload operator-
+ */
+TEST(VectorOverloadOperators, SubtractValue2Vector)
+{
+    std::array<double, 4> a = {2, 2, 2, 2};
+    Hegemonic::Vector4d v1 = Hegemonic::Vector4d(a);
+
+    double value = 3;
+    
+    std::array<double, 4> c = {-1, -1, -1, -1};
+    Hegemonic::Vector4d v3 = Hegemonic::Vector4d(c);
+
+    Hegemonic::Vector4d v4 = value - v1;
+    ERROR er;
+    EXPECT_TRUE_VECTOR_APPROX(v4, v3, er.DOUBLE);
+}
+
+/**
+ * INFO: Vector test to test overload operator+
+ */
+TEST(VectorOverloadOperators, AddVector2Value)
+{
+    std::array<double, 4> a = {2, 2, 2, 2};
+    Hegemonic::Vector4d v1 = Hegemonic::Vector4d(a);
+
+    double value = 3;
+    
+    std::array<double, 4> c = {5, 5, 5, 5};
+    Hegemonic::Vector4d v3 = Hegemonic::Vector4d(c);
+
+    Hegemonic::Vector4d v4 = v1 + value;
+    ERROR er;
+    EXPECT_TRUE_VECTOR_APPROX(v4, v3, er.DOUBLE);
+}
+
+/**
+ * INFO: Vector test to test overload operator+
+ */
+TEST(VectorOverloadOperators, AddValue2Vector)
+{
+    std::array<double, 4> a = {2, 2, 2, 2};
+    Hegemonic::Vector4d v1 = Hegemonic::Vector4d(a);
+
+    double value = 3;
+    
+    std::array<double, 4> c = {5, 5, 5, 5};
+    Hegemonic::Vector4d v3 = Hegemonic::Vector4d(c);
+
+    Hegemonic::Vector4d v4 = value + v1;
+    ERROR er;
+    EXPECT_TRUE_VECTOR_APPROX(v4, v3, er.DOUBLE);
+}
+
+/**
+ * INFO: Vector test to test initializer list constructor
+ */
+TEST(Vector, ConstructorInitializerList)
+{
+    std::array<double, 4> c = {3, 2, 1, 0};
+    Hegemonic::Vector4d v = Hegemonic::Vector4d({3, 2, 1, 0});
+    std::size_t count = 0;
+    for (const auto& e : v)
+    {
+        EXPECT_TRUE(c.at(count) == e);
+        count++;
+    }
+}
+
+/**
+ * INFO: Vector test to test iterators
+ */
+TEST(VectorIterator, IteratorLoop)
+{
+    std::array<double, 4> c = {3, 2, 1, 0};
+    Hegemonic::Vector4d v = Hegemonic::Vector4d(c);
+
+    // ranged for loop
+    std::size_t count = 0;
+    for (const auto& e : v)
+    {
+        EXPECT_TRUE(c.at(count) == e);
+        count++;
+    }
+
+    // c++98 Style
+    count = 0;
+    for (Hegemonic::Vector4d::iterator<double> it = v.begin(); it != v.end(); ++it)
+    {
+        EXPECT_TRUE(c.at(count) == *it);
+        count++;
+    }
 }
