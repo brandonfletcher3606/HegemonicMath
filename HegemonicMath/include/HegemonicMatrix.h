@@ -5,7 +5,7 @@
 #include <assert.h>
 #include <algorithm>
 #include <stdexcept>
-#include "Vector.h"
+#include "HegemonicVector.h"
 
 namespace Hegemonic
 {

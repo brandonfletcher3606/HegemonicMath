@@ -3,8 +3,8 @@
 #include <iomanip>
 #include <sstream>
 #include <string>
-#include "Matrix.h"
-#include "Vector.h"
+#include "HegemonicMatrix.h"
+#include "HegemonicVector.h"
 
 void print()
 {

@@ -3,8 +3,8 @@
 #include <gtest/gtest.h>
 #include <array>
 
-#include "Matrix.h"
-#include "Vector.h"
+#include "HegemonicMatrix.h"
+#include "HegemonicVector.h"
 
 typedef struct ERROR
 {

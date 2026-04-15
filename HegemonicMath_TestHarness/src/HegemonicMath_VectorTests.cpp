@@ -1,5 +1,5 @@
 #include <gtest/gtest.h>
-#include "Vector.h"
+#include "HegemonicVector.h"
 #include <algorithm>
 #include "HegemonicMath_GTestSupport.h"
 
