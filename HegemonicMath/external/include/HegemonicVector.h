@@ -56,6 +56,26 @@ namespace Hegemonic
                 }
                 return sqrt(returnValue);
             }
+            const Vector<T, COUNT> getNormalized() const
+            {
+                Vector<T, COUNT> returnVector;
+                T mag = getMagnitude();
+                for (int i = 0; i < getSize(); i++)
+                {
+                    returnVector.setElement(getElement(i)/mag, i);
+                }
+                return returnVector;
+            }
+            Vector<T, COUNT> getNormalized()
+            {
+                Vector<T, COUNT> returnVector;
+                T mag = getMagnitude();
+                for (int i = 0; i < getSize(); i++)
+                {
+                    returnVector.setElement(getElement(i)/mag, i);
+                }
+                return returnVector;
+            }
             ConstReference getElement(std::size_t aIndex) const
             { 
                 if (aIndex >= COUNT) { throw std::out_of_range("VECTOR::getElement: index out of range"); };
@@ -75,6 +95,14 @@ namespace Hegemonic
             void setAll(T aValue)
             {
                 mVector.fill(aValue);
+            }
+            void setNormalized()
+            {
+                T mag = getMagnitude();
+                for (int i = 0; i < getSize(); i++)
+                {
+                    (*this)[i] = (*this)[i] / mag;
+                }
             }
 
             // overload operators

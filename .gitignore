@@ -1,5 +1,8 @@
 # folders
-build/*
+build*
+HegemonicMath_TestHarness/googletest*
+.vscode*
+HegemonicMath.code-workspace
 
 # Prerequisites
 *.d

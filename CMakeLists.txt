@@ -1,6 +1,6 @@
 # cmake setup
 cmake_minimum_required(VERSION 3.23)
-project(HegemonicEngineTotal)
+project(HegemonicMathTotal)
 
 message("Building HegemonicMath...")
 add_subdirectory(HegemonicMath)

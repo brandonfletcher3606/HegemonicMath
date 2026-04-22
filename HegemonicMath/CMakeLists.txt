@@ -14,27 +14,27 @@ file(GLOB INC_FILES_HEGEMONIC_MATH
         ${PROJECT_SOURCE_DIR}/include/*.h)
 
 # set the directories for the install locations
-set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS ON)
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${PROJECT_SOURCE_DIR}/external/bin")
-set(CMAKE_LIBRARY_OUTPUT_DIRECTORY "${PROJECT_SOURCE_DIR}/external/lib")
-set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY "${PROJECT_SOURCE_DIR}/external/lib")
+set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS ON) # this ignores any declspec compiler property, Hegemonic Math has no non-templates as of right now
 
 # build executable and link libraries
 include_directories(${PROJECT_SOURCE_DIR}/include/)
 add_library(HegemonicMath SHARED ${SRC_FILES_HEGEMONIC_MATH})
 
+# this add a compile tile variable to be used, BUILDING_HEGEMONIC_MATH is specific for declspec
+target_compile_definitions(HegemonicMath PRIVATE BUILDING_HEGEMONIC_MATH)
+
+# select directies for the dll/so/lib
+set_target_properties(HegemonicMath PROPERTIES
+    ARCHIVE_OUTPUT_DIRECTORY "${PROJECT_SOURCE_DIR}/external/lib"   # Path for .lib
+    LIBRARY_OUTPUT_DIRECTORY "${PROJECT_SOURCE_DIR}/external/lib"   # Path for .so (Linux)
+    RUNTIME_OUTPUT_DIRECTORY "${PROJECT_SOURCE_DIR}/external/bin"   # Path for .dll
+)
+
 target_include_directories(HegemonicMath
     PUBLIC ${PROJECT_SOURCE_DIR}/include/)
 
 # setting which header files should be supplied with the library
-set_target_properties(HegemonicMath PROPERTIES PUBLIC_HEADER ${INC_FILES_HEGEMONIC_MATH})
+set_target_properties(HegemonicMath PROPERTIES ${INC_FILES_HEGEMONIC_MATH})
 
 # copy over files
 file(COPY ${PROJECT_SOURCE_DIR}/include/ DESTINATION ${PROJECT_SOURCE_DIR}/external/include/)
-
-# # add the command to copy over include directories
-# install(DIRECTORY ${PROJECT_SOURCE_DIR}/include/ DESTINATION ${PROJECT_SOURCE_DIR}/external/include/)
-
-# # call the command on the BUILD phase
-# add_custom_command(TARGET HegemonicMath POST_BUILD
-#         COMMAND cmake --install ${PROJECT_SOURCE_DIR}/../build)

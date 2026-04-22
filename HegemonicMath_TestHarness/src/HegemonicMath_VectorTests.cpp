@@ -290,3 +290,29 @@ TEST(VectorIterator, IteratorLoop)
         count++;
     }
 }
+
+/**
+ * INFO: Vector test to test getNormalized
+ */
+TEST(Vector, GetNormalized)
+{
+    Hegemonic::Vector3d v = {3.0, 4.0, 5.0};
+    Hegemonic::Vector3d a = v.getNormalized();
+    Hegemonic::Vector3d b = {0.424264068711929, 0.565685424949238, 0.707106781186547};
+
+    ERROR er;
+    EXPECT_TRUE_VECTOR_APPROX(a, b, er.DOUBLE);
+}
+
+/**
+ * INFO: Vector test to test setNormalized
+ */
+TEST(Vector, SetNormalized)
+{
+    Hegemonic::Vector3d v = {3.0, 4.0, 5.0};
+    v.setNormalized();
+    Hegemonic::Vector3d b = {0.424264068711929, 0.565685424949238, 0.707106781186547};
+
+    ERROR er;
+    EXPECT_TRUE_VECTOR_APPROX(v, b, er.DOUBLE);
+}
