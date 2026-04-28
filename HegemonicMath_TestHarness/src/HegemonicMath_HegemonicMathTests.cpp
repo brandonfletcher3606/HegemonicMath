@@ -4,6 +4,14 @@
 #include "HegemonicMath_PrinterSupport.h"
 
 /**
+ * INFO: Test Version
+ */
+TEST(HegemonicMath, VERSION)
+{
+    EXPECT_TRUE(Hegemonic::getHegemonicMathVersion() == "1.0.0");
+}
+
+/**
  * INFO: Test HegemonicMath Minimum
  */
 TEST(HegemonicMath, Minimum)

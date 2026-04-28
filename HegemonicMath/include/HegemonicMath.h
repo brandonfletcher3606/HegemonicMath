@@ -1,7 +1,12 @@
 #pragma once
 
+// #define HEGEMONICMATH_VERSION_MAJOR 1
+// #define HEGEMONICMATH_VERSION_MINOR 0
+// #define HEGEMONICMATH_VERSION_PATCH 0
+
 #include "HegemonicVector.h"
 #include "HegemonicMatrix.h"
+#include "HegemonicMathDefines.h"
 #include <utility>
 
 namespace Hegemonic

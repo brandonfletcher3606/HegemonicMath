@@ -1,6 +1,6 @@
 # cmake setup
 cmake_minimum_required(VERSION 3.24)
-project(HegemonicMath)
+project(HegemonicMath VERSION 1.0.0)
 
 set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -13,15 +13,14 @@ file(GLOB SRC_FILES_HEGEMONIC_MATH
 file(GLOB INC_FILES_HEGEMONIC_MATH 
         ${PROJECT_SOURCE_DIR}/include/*.h)
 
-# set the directories for the install locations
-set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS ON) # this ignores any declspec compiler property, Hegemonic Math has no non-templates as of right now
+configure_file(${PROJECT_SOURCE_DIR}/include/HegemonicMathVersion.h.in "${PROJECT_SOURCE_DIR}/include/HegemonicMathVersion.h")
 
 # build executable and link libraries
-include_directories(${PROJECT_SOURCE_DIR}/include/)
+include_directories(${INC_FILES_HEGEMONIC_MATH})
 add_library(HegemonicMath SHARED ${SRC_FILES_HEGEMONIC_MATH})
 
-# this add a compile tile variable to be used, BUILDING_HEGEMONIC_MATH is specific for declspec
-target_compile_definitions(HegemonicMath PRIVATE BUILDING_HEGEMONIC_MATH)
+# this add a compile tile variable to be used, BUILDING_HEGEMONIC_TOOLS is specific for declspec
+target_compile_definitions(HegemonicMath PRIVATE BUILDING_HEGEMONIC_MATH=1)
 
 # select directies for the dll/so/lib
 set_target_properties(HegemonicMath PROPERTIES
@@ -32,9 +31,6 @@ set_target_properties(HegemonicMath PROPERTIES
 
 target_include_directories(HegemonicMath
     PUBLIC ${PROJECT_SOURCE_DIR}/include/)
-
-# setting which header files should be supplied with the library
-set_target_properties(HegemonicMath PROPERTIES ${INC_FILES_HEGEMONIC_MATH})
 
 # copy over files
 file(COPY ${PROJECT_SOURCE_DIR}/include/ DESTINATION ${PROJECT_SOURCE_DIR}/external/include/)

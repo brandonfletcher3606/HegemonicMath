@@ -1,0 +1,3 @@
+#pragma once
+
+#define HEGEMONICMATH_VERSION "@PROJECT_VERSION@"

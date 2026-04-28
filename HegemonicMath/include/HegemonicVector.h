@@ -83,7 +83,7 @@ namespace Hegemonic
             };
             Reference getElement(std::size_t aIndex)
             { 
-                if (aIndex >= COUNT) { throw std::out_of_range("VECTOR: getElement: index out of range"); };
+                if (aIndex >= COUNT) { throw std::out_of_range("VECTOR::getElement: index out of range"); };
                 return mVector[aIndex];
             };
 
