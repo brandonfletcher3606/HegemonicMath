@@ -1,3 +1,8 @@
 #pragma once
 
 #define HEGEMONICMATH_VERSION "@PROJECT_VERSION@"
+
+namespace Hegemonic
+{
+    HEXPORT_MATH std::string getHegemonicMathVersion();
+}

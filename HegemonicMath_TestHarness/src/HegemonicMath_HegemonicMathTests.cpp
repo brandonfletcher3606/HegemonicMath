@@ -2,6 +2,7 @@
 #include "HegemonicMath.h"
 #include "HegemonicMath_GTestSupport.h"
 #include "HegemonicMath_PrinterSupport.h"
+#include "HegemonicMathVersion.h"
 
 /**
  * INFO: Test Version

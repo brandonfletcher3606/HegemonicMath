@@ -8,9 +8,9 @@
 	#define LINUX_PLATFORM 0
 	#define FILESEP "\\"
     #ifdef BUILDING_HEGEMONIC_MATH
-        #define HEXPORT __declspec(dllexport)
+        #define HEXPORT_MATH __declspec(dllexport)
     #else
-        #define HEXPORT __declspec(dllimport)
+        #define HEXPORT_MATH __declspec(dllimport)
     #endif
 #else
     // Linux/Unix logic
@@ -18,13 +18,8 @@
 	#define LINUX_PLATFORM 1
 	#define FILESEP "/"
     #if __GNUC__ >= 4
-        #define HEXPORT __attribute__((visibility("default")))
+        #define HEXPORT_MATH __attribute__((visibility("default")))
     #else
-        #define HEXPORT
+        #define HEXPORT_MATH
     #endif
 #endif
-
-namespace Hegemonic
-{
-    HEXPORT std::string getHegemonicMathVersion();
-}
