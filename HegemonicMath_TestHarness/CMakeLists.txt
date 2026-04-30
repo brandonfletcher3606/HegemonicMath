@@ -20,7 +20,7 @@ file(GLOB INC_FILES_HEGEMONIC_MATH_TH
 set_target_properties(HegemonicMath PROPERTIES
     IMPORTED_IMPLIB               "${PROJECT_SOURCE_DIR}/../HegemonicMath/external/lib/Debug/HegemonicMath.lib"
     IMPORTED_LOCATION             "${PROJECT_SOURCE_DIR}/../HegemonicMath/external/bin/Debug/HegemonicMath.dll"
-    INTERFACE_INCLUDE_DIRECTORIES "${PROJECT_SOURCE_DIR}/../HegemonicMath/external/include"
+    INTERFACE_INCLUDE_DIRECTORIES "${PROJECT_SOURCE_DIR}/../HegemonicMath/include"
 )
 
 include_directories(${PROJECT_SOURCE_DIR}/include/)
