@@ -215,6 +215,9 @@ namespace Hegemonic
     using Vector4d = Vector4<double>;
     using Vector4i = Vector4<int>;
 
+    using Position2di = Vector2i;
+    using Position3di = Vector3i;
+
     template<class T, std::size_t COUNT>
     Vector<T, COUNT> operator+(const Vector<T, COUNT> &aVector1, const T aValue)
     {
