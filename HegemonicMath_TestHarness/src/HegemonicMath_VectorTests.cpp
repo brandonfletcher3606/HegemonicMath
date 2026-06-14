@@ -31,8 +31,9 @@ TEST(Vector, VectorInitializationNonZeroCArray)
 {
     double a[3] = {1, 2, 3};
     Hegemonic::Vector3d v = Hegemonic::Vector3d(a);
+    std::array<double, 3> b = std::array<double, 3>({1.0, 2.0, 3.0});
     ERROR ce;
-    EXPECT_TRUE_ARRAY_APPROX<double, 3>(*v.get(), std::array<double, 3>({1, 2, 3}), ce.DOUBLE);
+    EXPECT_TRUE_ARRAY_APPROX<double, 3>(*v.get(), b, ce.DOUBLE);
 }
 
 /**

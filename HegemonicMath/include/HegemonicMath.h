@@ -6,6 +6,7 @@
 #include "HegemonicMatrix.h"
 #include "HegemonicVector.h"
 #include <utility>
+#include <cmath>
 
 namespace Hegemonic
 {
@@ -93,18 +94,18 @@ namespace Hegemonic
     template<typename T, std::size_t COUNT>
     void clamp(T aMinValue, T aMaxValue, Hegemonic::Vector<T, COUNT>& aValue)
     {
-        for (Hegemonic::Vector<T, COUNT>::iterator<T> it = aValue.begin(); it != aValue.end(); ++it)
+        for (auto& num : aValue)
         {
-            *it = clamp(aMinValue, aMaxValue, *it);
+            num = clamp(aMinValue, aMaxValue, num);
         }
     }
 
     template<typename T, std::size_t ROWS, std::size_t COLUMNS>
     void clamp(T aMinValue, T aMaxValue, Hegemonic::Matrix<T, ROWS, COLUMNS> &aMatrix)
     {
-        for (Hegemonic::Matrix<T, ROWS, COLUMNS>::iterator<T> it = aMatrix.begin(); it != aMatrix.end(); ++it)
+        for (auto& num : aMatrix)
         {
-            clamp(aMinValue, aMaxValue, *it);
+            clamp(aMinValue, aMaxValue, num);
         }
     }
 
@@ -118,18 +119,18 @@ namespace Hegemonic
     template<typename T, std::size_t COUNT>
     void wrap(T aMinValue, T aMaxValue, Hegemonic::Vector<T, COUNT>& aValue)
     {
-        for (Hegemonic::Vector<T, COUNT>::iterator<T> it = aValue.begin(); it != aValue.end(); ++it)
+        for (auto& num : aValue)
         {
-            *it = wrap(aMinValue, aMaxValue, *it);
+            num = wrap(aMinValue, aMaxValue, num);
         }
     }
 
     template<typename T, std::size_t ROWS, std::size_t COLUMNS>
     void wrap(T aMinValue, T aMaxValue, Hegemonic::Matrix<T, ROWS, COLUMNS> &aMatrix)
     {
-        for (Hegemonic::Matrix<T, ROWS, COLUMNS>::iterator<T> it = aMatrix.begin(); it != aMatrix.end(); ++it)
+        for (auto& num : aMatrix)
         {
-            wrap(aMinValue, aMaxValue, *it);
+            wrap(aMinValue, aMaxValue, num);
         }
     }
 
